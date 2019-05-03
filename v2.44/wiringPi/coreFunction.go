@@ -20,16 +20,16 @@ const (
 )
 
 // PinMode corresponds to GPIO PIN mode.
-type PinMode int
+type pinMode int
 
 const (
-	InputPinMode          PinMode = C.INPUT
-	OutputPinMode         PinMode = C.OUTPUT
-	PwmOutputPinMode      PinMode = C.PWM_OUTPUT
-	GPIOClockPinMode      PinMode = C.GPIO_CLOCK
-	SoftPwmOutputPinMode  PinMode = C.SOFT_PWM_OUTPUT
-	SoftToneOutputPinMode PinMode = C.SOFT_TONE_OUTPUT
-	PwmToneOutputPinMode  PinMode = C.PWM_TONE_OUTPUT
+	InputPinMode          pinMode = C.INPUT
+	OutputPinMode         pinMode = C.OUTPUT
+	PwmOutputPinMode      pinMode = C.PWM_OUTPUT
+	GPIOClockPinMode      pinMode = C.GPIO_CLOCK
+	SoftPwmOutputPinMode  pinMode = C.SOFT_PWM_OUTPUT
+	SoftToneOutputPinMode pinMode = C.SOFT_TONE_OUTPUT
+	PwmToneOutputPinMode  pinMode = C.PWM_TONE_OUTPUT
 )
 
 //LOW means logic low
@@ -86,7 +86,7 @@ has no on-board analog hardware.
 //This function has no effect when in Sys mode. If you
 //need to change the pin mode, then you can do it with
 //the gpio program in a script before you start your program.
-func pinMode(pin int, mode PinMode) {
+func PinMode(pin int, mode pinMode) {
 
 	C.pinMode(C.int(pin), C.int(mode))
 }
@@ -129,7 +129,7 @@ func pwmWrite(pin int, value int) {
 
 //digitalRead function returns the value read at the given pin.
 //It will be HIGH or LOW (1 or 0) depending on the logic level at the pin.
-func digitalRead(pin int) int {
+func DigitalRead(pin int) int {
 
 	ret := int(C.digitalRead(C.int(pin)))
 	return ret
@@ -139,7 +139,7 @@ func digitalRead(pin int) int {
 //You will need to register additional analog modules
 //to enable this function for devices such as the Gertboard,
 //quick2Wire analog board, etc.
-func analogRead(pin int) int {
+func AnalogRead(pin int) int {
 
 	ret := int(C.analogRead(C.int(pin)))
 	return ret
@@ -162,6 +162,6 @@ func Setup() int {
 }
 
 // SetPinMode : Sets the mode of a pin to be input, output or PWM output
-func SetPinMode(pin int, mode PinMode) {
+func SetPinMode(pin int, mode pinMode) {
 	C.pinMode(C.int(pin), C.int(mode))
 }
